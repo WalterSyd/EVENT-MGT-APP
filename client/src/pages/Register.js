@@ -7,6 +7,7 @@ const RegisterSchema = Yup.object().shape({
     username: Yup.string().required('Username is required'),
     email: Yup.string().email('Invalid email').required('Email is required'),
     password: Yup.string().required('Password is required'),
+    role: Yup.string().oneOf(['user', 'admin'], 'Invalid role').required('Role is required'),
 });
 
 function Register() {
@@ -24,7 +25,7 @@ function Register() {
 
     return (
         <Formik
-            initialValues={{ username: '', email: '', password: '' }}
+            initialValues={{ username: '', email: '', password: '', role: 'user' }} // Default role
             validationSchema={RegisterSchema}
             onSubmit={handleSubmit}
         >
@@ -36,6 +37,11 @@ function Register() {
                     <ErrorMessage name="email" component="div" />
                     <Field type="password" name="password" placeholder="Password" />
                     <ErrorMessage name="password" component="div" />
+                    <Field as="select" name="role">
+                        <option value="user">User</option>
+                        <option value="admin">Admin</option>
+                    </Field>
+                    <ErrorMessage name="role" component="div" />
                     <button type="submit" disabled={isSubmitting}>Register</button>
                 </Form>
             )}

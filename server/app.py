@@ -1,4 +1,4 @@
-# app.py
+
 from config import app, db
 from flask_migrate import Migrate
 from routes import *  # Import routes here
