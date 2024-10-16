@@ -4,6 +4,7 @@ from flask_jwt_extended import JWTManager, create_access_token, \
     jwt_required, create_refresh_token, get_jwt_identity
 from models import User, Event, Registration, db
 from config import app
+from werkzeug.security import generate_password_hash
 
 jwt = JWTManager(app)
 
@@ -44,7 +45,16 @@ def refresh():
 @jwt_required()
 def get_events():
     events = Event.query.all()
-    return jsonify(events=[{'id': event.id, 'title': event.title} for event in events]), 200
+    for event in events:
+        return jsonify([
+            {
+                'id': event.id,
+                'title': event.title,
+                'description': event.description,
+                'datetime': f"{event.date} {event.time}",
+                'location': event.location
+            } 
+        ]), 200
 
 @app.route('/events/<int:event_id>', methods=['GET'])
 @jwt_required()
