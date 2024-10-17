@@ -12,4 +12,4 @@ def home():
     return "Welcome to the Event Management System API!"
 
 if __name__ == "__main__":
-    app.run(debug=True)  # Start the Flask application
+    app.run(debug=True)  
