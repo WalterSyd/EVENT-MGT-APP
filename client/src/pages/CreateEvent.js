@@ -16,7 +16,7 @@ function CreateEvent() {
         try {
             await axios.post('/events', values, {
                 headers: {
-                    Authorization: `Bearer ${localStorage.getItem('access_token')}`
+                    Authorization: `Bearer ${localStorage.getItem('access_token')}` // Pass token for auth
                 }
             });
             alert('Event created successfully');

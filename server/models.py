@@ -37,4 +37,5 @@ class Registration(db.Model):
     event_id = db.Column(db.Integer, db.ForeignKey('events.id'), nullable=False)
     registered_at = db.Column(db.DateTime, default=datetime.utcnow)
 
-    __table_args__ = (db.UniqueConstraint('user_id', 'event_id', name='unique_user_event'),)
+    user = db.relationship('User', backref='registrations')
+    event = db.relationship('Event', backref='registrations')
