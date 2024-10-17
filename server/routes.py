@@ -1,9 +1,8 @@
 from flask import jsonify, request
-from flask_jwt_extended import JWTManager, create_access_token, \
-    jwt_required, create_refresh_token, get_jwt_identity, check_password_hash
+from flask_jwt_extended import JWTManager, create_access_token, jwt_required, create_refresh_token, get_jwt_identity
+from werkzeug.security import generate_password_hash, check_password_hash
 from models import User, Event, Registration, db
 from config import app
-from werkzeug.security import generate_password_hash
 from flask_restful import Resource, Api
 
 api = Api(app)
