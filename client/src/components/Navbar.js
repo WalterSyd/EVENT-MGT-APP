@@ -37,6 +37,7 @@
 
 import React, { useState } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom'; // Import Link for routing
 
 function Navbar() {
     const [searchTerm, setSearchTerm] = useState('');
@@ -61,9 +62,11 @@ function Navbar() {
                     onChange={(e) => setSearchTerm(e.target.value)} 
                 />
                 <button className="btn" onClick={handleSearch}>Search</button>
-                <button className="btn">About Us</button>
-                <button className="btn">Contact Us</button>
-                <button className="btn">Services</button>
+                
+                {/* Navigation links */}
+                <Link to="/about" className="btn">About Us</Link>
+                <Link to="/services" className="btn">Our Services</Link>
+                <Link to="/contact" className="btn">Contact Us</Link>
                 <button className="btn">Logout</button>
             </div>
         </div>
