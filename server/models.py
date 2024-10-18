@@ -1,8 +1,9 @@
 from config import db
 from datetime import datetime
 from sqlalchemy.orm import relationship
+from sqlalchemy_serializer import SerializerMixin
 
-class User(db.Model):
+class User(db.Model, SerializerMixin):
   __tablename__ = 'users'
   
   id = db.Column(db.Integer, primary_key=True)
@@ -15,8 +16,12 @@ class User(db.Model):
   
   # Define a relationship with Registration
   registrations = relationship('Registration', back_populates='user')
+   # Define a relationship with User
+  created_events = db.relationship('Event',back_populates='creator')
 
-class Event(db.Model):
+  serialize_rules =('-registrations', '-created_events')
+
+class Event(db.Model, SerializerMixin):
   __tablename__ = 'events'
   
   id = db.Column(db.Integer, primary_key=True)
@@ -32,12 +37,14 @@ class Event(db.Model):
     return f"Event('{self.title}', '{self.date}', '{self.time}')"
 
   # Define a relationship with User
-  creator = db.relationship('User', backref='created_events')
+  creator = db.relationship('User',back_populates='created_events')
 
   # Define a relationship with Registration
   registrations = db.relationship('Registration', back_populates='event')
 
-class Registration(db.Model):
+  serialize_rules =('-registrations', '-creator')
+
+class Registration(db.Model, SerializerMixin):
   __tablename__ = 'registrations'
   
   id = db.Column(db.Integer, primary_key=True)
@@ -48,3 +55,5 @@ class Registration(db.Model):
   # Define relationships with User and Event
   user = relationship('User', back_populates='registrations')
   event = relationship('Event', back_populates='registrations')
+
+  serialize_rules =('-user', '-event')
