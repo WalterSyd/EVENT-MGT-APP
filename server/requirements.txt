@@ -4,3 +4,4 @@ flask-migrate
 flask-cors
 flask-jwt-extended
 faker
+flask-sqlalchemy

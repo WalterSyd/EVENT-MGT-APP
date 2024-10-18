@@ -12,7 +12,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(app.instance
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = 'your_secret_key'  # Change this to a secure random key in production
 app.config['JWT_ACCESS_TOKEN_EXPIRES'] = timedelta(minutes=40)
-app.config['JWT_REFRESH_TOKEN_EXPIRES'] = timedelta(days=30)  # Refresh token expiry
+app.config['JWT_REFRESH_TOKEN_EXPIRES'] = timedelta(days=30) 
 
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
