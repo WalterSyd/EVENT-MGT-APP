@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
@@ -8,12 +7,12 @@ function RegisteredEvents() {
     useEffect(() => {
         const fetchRegisteredEvents = async () => {
             try {
-                const response = await axios.get('/registered-events', {
-                    headers: {
-                        Authorization: `Bearer ${localStorage.getItem('access_token')}`
-                    }
-                });
-                setRegisteredEvents(response.data);
+                // Simulate registered events data (Replace this with real API call when available)
+                const eventsData = [
+                    { id: 1, title: 'Africa Bitcoin Conference 2024', description: 'Explore Bitcoin and crypto developments in Africa.' },
+                    { id: 2, title: 'Silicon Xchange 2024', description: 'Tech event featuring top industry leaders.' }
+                ];
+                setRegisteredEvents(eventsData); // Set fetched data
             } catch (error) {
                 console.error('Error fetching registered events:', error);
             }
