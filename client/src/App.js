@@ -11,7 +11,10 @@ import EditEvent from './pages/EditEvent';
 import EventList from './pages/EventList';
 import RegisteredEvents from './pages/RegisteredEvents';
 import Profile from './pages/Profile';
-import './App.css';
+import AboutUs from './components/AboutUs';
+import ContactUs from './components/ContactUs';
+import OurServices from './components/OurServices';
+import './App.css'; // Ensure this path is correct
 
 function App() {
   // Style for the main content area to account for the fixed navbar and sidebar
@@ -41,6 +44,11 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/event/:id" element={<EventDetails />} />
           <Route path="/edit-event/:id" element={<EditEvent />} />
+
+          {/* New Routes for About Us, Our Services, and Contact Us */}
+          <Route path="/about" element={<AboutUs />} />
+          <Route path="/services" element={<OurServices />} />
+          <Route path="/contact" element={<ContactUs />} />
         </Routes>
       </div>
     </Router>
