@@ -11,6 +11,7 @@ const OurServices = () => {
                 <li>Service 3: Description of Service 3.</li>
                 <li>Service 4: Description of Service 4.</li>
                 <li>Service 5: Description of Service 5.</li>
+                <li>Service 6: Description of Service 6.</li>
             </ul>
             <p>
                 We tailor our services to meet the unique needs of each client,
