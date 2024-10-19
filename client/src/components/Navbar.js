@@ -1,5 +1,3 @@
-
-
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom'; // Import Link for routing
@@ -59,6 +57,7 @@ const Navbar = () => {
 
       {/* Navbar Links */}
       <div>
+        
         <Link to="/about" style={buttonStyle}>About Us</Link>
         <Link to="/services" style={buttonStyle}>Our Services</Link>
         <Link to="/contact" style={buttonStyle}>Contact Us</Link>

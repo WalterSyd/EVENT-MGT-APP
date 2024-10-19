@@ -18,7 +18,7 @@ function EditEvent() {
 
     useEffect(() => {
         const fetchEvent = async () => {
-            const response = await axios.get(`/events/${id}`, {
+            const response = await axios.get(`http://127.0.0.1:5000/events/${id}`, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('access_token')}`
                 }

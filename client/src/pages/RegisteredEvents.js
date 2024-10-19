@@ -18,6 +18,15 @@ function RegisteredEvents() {
             }
         };
         fetchRegisteredEvents();
+        const fetchEvents = async () => {
+            try {
+                const response = await axios.get('http://127.0.0.1:5000/api/events');
+                console.log(response.data);
+            } catch (error) {
+                console.error('Error fetching events:', error);
+            }
+        };
+        fetchEvents();
     }, []);
 
     return (

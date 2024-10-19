@@ -13,7 +13,7 @@ const RegisterSchema = Yup.object().shape({
 function Register() {
     const handleSubmit = async (values, { setSubmitting }) => {
         try {
-            await axios.post('/register', values);
+            await axios.post('/api/register', values);
             alert('Registration successful');
         } catch (error) {
             console.error('Registration error', error);
