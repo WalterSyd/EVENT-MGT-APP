@@ -14,7 +14,7 @@ function Login() {
 
     const handleSubmit = async (values, { setSubmitting }) => {
         try {
-            const response = await axios.post('/api/login', values);
+            const response = await axios.post('http://127.0.0.1:5000/api/login', values);
             localStorage.setItem('access_token', response.data.access_token);
             localStorage.setItem('username', response.data.username); // Save username to localStorage
             alert('Login successful');
