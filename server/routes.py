@@ -66,7 +66,7 @@ class Events(Resource):
 class EventResource(Resource):
     def get(self, event_id):
         event = Event.query.get_or_404(event_id)
-        return jsonify(event.serialize()), 200
+        return make_response(jsonify(event.to_dict()), 200)
 
     @jwt_required()
     def put(self, event_id):
@@ -74,11 +74,11 @@ class EventResource(Resource):
         event = Event.query.get_or_404(event_id)
         event.title = data['title']
         event.description = data['description']
-        event.date = data['date']
-        event.time = data['time']
+        # event.date = data['date']
+        # event.time = data['time']
         event.location = data['location']
         db.session.commit()
-        return jsonify(message="Event updated successfully."), 200
+        return make_response(jsonify(message="Event updated successfully."), 200)
 
     @jwt_required()
     def delete(self, event_id):
@@ -109,7 +109,7 @@ class RegisteredEvents(Resource):
     def get(self):
         user_id = get_jwt_identity()['id']
         registered_events = Registration.query.filter_by(user_id=user_id).all()
-        return jsonify([registration.event.serialize() for registration in registered_events]), 200
+        return jsonify([registration.to_dict() for registration in registered_events]), 200
 
 # Create a new Event (Admin)
 class CreateEvent(Resource):
