@@ -109,7 +109,23 @@ class RegisteredEvents(Resource):
     def get(self):
         user_id = get_jwt_identity()['id']
         registered_events = Registration.query.filter_by(user_id=user_id).all()
-        return jsonify([registration.to_dict() for registration in registered_events]), 200
+        event_ids = [registration.event_id for registration in registered_events]
+        events = Event.query.filter(Event.id.in_(event_ids)).all()
+        return jsonify([event.to_dict() for event in events]), 200
+
+    @jwt_required()
+    def post(self):
+        user_id = get_jwt_identity()['id']
+        data = request.get_json()
+        event_ids = data.get('event_ids', [])
+        for event_id in event_ids:
+            event = Event.query.get_or_404(event_id)
+            registration = Registration.query.filter_by(user_id=user_id, event_id=event_id).first()
+            if not registration:
+                new_registration = Registration(user_id=user_id, event_id=event_id)
+                db.session.add(new_registration)
+        db.session.commit()
+        return jsonify(message="Events saved successfully."), 201
 
 # Create a new Event (Admin)
 class CreateEvent(Resource):
