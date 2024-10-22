@@ -3,26 +3,25 @@ import axios from 'axios';
 
 const RegisteredEvents = () => {
   const [registeredEvents, setRegisteredEvents] = useState([]);
-  const [events, setEvents] = useState([]);
 
   useEffect(() => {
+    const fetchRegisteredEvents = async () => {
+      try {
+        const accessToken = localStorage.getItem('access_token');
+        const response = await axios.get(`http://127.0.0.1:5000/api/registered-events`, {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        });
+        const registeredEvents = response.data;
+        setRegisteredEvents(registeredEvents);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
     fetchRegisteredEvents();
   }, []);
-
-  const fetchRegisteredEvents = async () => {
-    try {
-      const accessToken = localStorage.getItem('access_token');
-      const response = await axios.get(`http://127.0.0.1:5000/api/registered-events`, {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      });
-      const registeredEvents = response.data;
-      setRegisteredEvents(registeredEvents);
-    } catch (error) {
-      console.error(error);
-    }
-  };
 
   const handleRemoveEvent = async (eventId) => {
     try {
@@ -40,7 +39,7 @@ const RegisteredEvents = () => {
   };
 
   return (
-    <div>
+    <div id="registered-events">
       <h1>My Events</h1>
       <ul>
         {registeredEvents.map((event) => (

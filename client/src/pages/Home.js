@@ -55,8 +55,10 @@ function Home() {
           {events.map((event, index) => (
             <div className={`event-card ${event.promoted ? 'promoted' : ''}`} key={index}>
               <h2>{event.title}</h2>
-              <p>{event.time}</p>
-              <p className="event-price">{event.price}</p>
+              <p>{event.description}</p>
+              <p>Date: {event.date}</p>
+              <p>Time: {event.time}</p>
+              <p>Location: {event.location}</p>
               <div className="event-actions">
                 <button className="btn" onClick={() => handleSaveEvents(event.id)}>Save Event</button>
               </div>

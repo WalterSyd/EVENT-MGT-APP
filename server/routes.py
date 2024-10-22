@@ -156,17 +156,21 @@ class CreateEvent(Resource):
         current_user = get_jwt_identity()
         data = request.get_json()
         
-        new_event = Event(
-            title=data['title'],
-            description=data['description'],
-            date=data['date'],
-            time=data['time'],
-            location=data['location'],
-            created_by=current_user['email']  
-        )
-        db.session.add(new_event)
-        db.session.commit()
-        return jsonify(message="Event created successfully"), 201
+        try:
+            new_event = Event(
+                title=data['title'],
+                description=data['description'],
+                date=data['date'],
+                time=data['time'],
+                location=data['location'],
+                created_by=current_user['email']  
+            )
+            db.session.add(new_event)
+            db.session.commit()
+            return jsonify(message="Event created successfully"), 201
+        except Exception as e:
+            db.session.rollback()
+            return jsonify(error=str(e)), 500
     
 
 # Update User Profile

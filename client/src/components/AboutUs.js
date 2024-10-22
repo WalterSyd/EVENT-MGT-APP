@@ -6,11 +6,11 @@ const AboutUs = () => {
         <div className="about-us">
             <h1>About Us</h1>
             <p>
-                Welcome to [Company Name], your premier event management partner dedicated to crafting unforgettable experiences. Founded on a passion for bringing people together, we have transformed the event planning landscape by seamlessly blending creativity with meticulous execution.
+                Welcome to Event Mastarz, your premier event management partner dedicated to crafting unforgettable experiences. Founded on a passion for bringing people together, we have transformed the event planning landscape by seamlessly blending creativity with meticulous execution.
             </p>
             <h2>Our Vision</h2>
             <p>
-                At [Company Name], we believe that every event tells a story. Whether it's a corporate gala, a wedding, or a community celebration, our goal is to create moments that resonate long after the event is over. We strive to push the boundaries of traditional event planning, continuously innovating to exceed our clients’ expectations.
+                At Event Mastarz, we believe that every event tells a story. Whether it's a corporate gala, a wedding, or a community celebration, our goal is to create moments that resonate long after the event is over. We strive to push the boundaries of traditional event planning, continuously innovating to exceed our clients’ expectations.
             </p>
             <h2>What We Do</h2>
             <p>
@@ -29,7 +29,7 @@ const AboutUs = () => {
             </p>
             <h2>Our Promise</h2>
             <p>
-                At [Company Name], we take pride in our integrity, creativity, and attention to detail. We are dedicated to making your event not just a function, but an experience that leaves a lasting impression.
+                At Event Mastarz, we take pride in our integrity, creativity, and attention to detail. We are dedicated to making your event not just a function, but an experience that leaves a lasting impression.
             </p>
             <p>
                 Join us in making your next event a remarkable celebration that your guests will remember for years to come! Let’s create magic together.
