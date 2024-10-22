@@ -104,6 +104,19 @@ class RegisterForEvent(Resource):
         db.session.commit()
         return jsonify(message="User registered for the event successfully."), 201
 
+#Reoute to search for events in the database
+class SearchEvents(Resource):
+    def get(self):
+        term = request.args.get('term')
+        category = request.args.get('category')
+
+        if category == 'all':
+            events = Event.query.filter(Event.title.like(f'%{term}%')).all()
+        else:
+            events = Event.query.filter(Event.title.like(f'%{term}%'), Event.category == category).all()
+
+        return jsonify([event.to_dict() for event in events])
+    
 # Get all events a user has registered for
 class RegisteredEvents(Resource):
     @jwt_required()
@@ -217,6 +230,7 @@ api.add_resource(Register, '/api/register')
 api.add_resource(Login, '/api/login')
 api.add_resource(Refresh, '/api/refresh')
 api.add_resource(Events, '/api/events')
+api.add_resource(SearchEvents, '/api/events/search')
 api.add_resource(EventResource, '/api/events/<int:event_id>')
 api.add_resource(RegisterForEvent, '/api/events/<int:event_id>/register')
 api.add_resource(RegisteredEvents, '/api/registered-events', '/api/registered-events/<int:event_id>')
