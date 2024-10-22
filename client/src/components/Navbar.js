@@ -3,15 +3,25 @@ import axios from 'axios';
 import { Link } from 'react-router-dom'; // Import Link for routing
 
 
+
+
 const Navbar = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState([]);
+  const [searchCategory, setSearchCategory] = useState('all');
   const [access_token, setAccessToken] = useState(localStorage.getItem('access_token') || '');
+
+
 
 
   const handleSearch = async () => {
     try {
-      const response = await axios.get(`/events?search=${searchTerm}`);
+      const response = await axios.get(`/api/events/search`, {
+        params: {
+          term: searchTerm,
+          category: searchCategory,
+        },
+      });
       setSearchResults(response.data);
       console.log('Search Results:', response.data);
     } catch (error) {
@@ -27,11 +37,15 @@ const Navbar = () => {
   };
 
 
+
+
   const handleLogout = () => {
     localStorage.removeItem('access_token');
     setAccessToken('');
     window.location.href = '/login';
   };
+
+
 
 
   // Navbar Styles (you can adjust them further)
@@ -44,10 +58,12 @@ const Navbar = () => {
     color: '#fff',
     position: 'fixed',
     top: '0',
-    left: '210px', // Accounts for the sidebar width
+    left: '250px', // Accounts for the sidebar width
     right: '0',
     zIndex: '1001',
   };
+
+
 
 
   const buttonStyle = {
@@ -63,6 +79,8 @@ const Navbar = () => {
   };
 
 
+
+
   return (
     <div>
       <div style={navbarStyle}>
@@ -75,8 +93,21 @@ const Navbar = () => {
             onChange={(e) => setSearchTerm(e.target.value)}
             style={{ padding: '8px', borderRadius: '5px', width: '300px' }}
           />
+          <select 
+            value={searchCategory}
+            onChange={(e) => setSearchCategory(e.target.value)}
+            style={{ padding: '8px', borderRadius: '5px', width: '150px' }}
+          >
+            <option value="all">All categories</option>
+            <option value="music">Music</option>
+            <option value="sports">Sports</option>
+            <option value="art">Art</option>
+            <option value="food">Food</option>
+          </select>
           <button style={buttonStyle} onClick={handleSearch}>Search</button>
         </div>
+
+
 
 
         {/* Navbar Links */}
@@ -92,6 +123,8 @@ const Navbar = () => {
           )}
         </div>
       </div>
+
+
 
       {/* Search Results */}
       {searchResults.length > 0 && (
@@ -109,6 +142,8 @@ const Navbar = () => {
     </div>
   );
 };
+
+
 
 
 export default Navbar;
