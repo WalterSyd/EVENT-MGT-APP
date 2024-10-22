@@ -1,83 +1,63 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
-function RegisteredEvents() {
-  const [registeredEvents, setRegisteredEvents] = useState([]);
-  const [selectedEvents, setSelectedEvents] = useState([]);
+const EventRegistration = () => {
   const [events, setEvents] = useState([]);
+  const [userId, setUserId] = useState(1); // Replace with actual logged-in user ID
+  const [message, setMessage] = useState('');
+  const accessToken = localStorage.getItem('access_token'); // Adjust as needed to retrieve the token
 
   useEffect(() => {
-    const fetchRegisteredEvents = async () => {
-      try {
-        const response = await axios.get('http://127.0.0.1:5000/api/registered-events');
-        setRegisteredEvents(response.data);
-      } catch (error) {
-        console.error('Error fetching registered events:', error);
-      }
-    };
-    fetchRegisteredEvents();
+    // Fetch events from your API
     const fetchEvents = async () => {
       try {
-        const response = await axios.get('http://127.0.0.1:5000/api/events');
+        const response = await axios.get('/api/events'); // Adjust API endpoint as necessary
         setEvents(response.data);
       } catch (error) {
-        console.error('Error fetching events:', error);
+        console.error("Error fetching events:", error);
       }
     };
+
     fetchEvents();
   }, []);
 
-  const handleSelectEvent = (event) => {
-    setSelectedEvents((prevSelectedEvents) => [...prevSelectedEvents, event]);
-  };
-
-  const handleDeselectEvent = (event) => {
-    setSelectedEvents((prevSelectedEvents) =>
-      prevSelectedEvents.filter((selectedEvent) => selectedEvent.id !== event.id)
-    );
-  };
-
-  const handleSaveEvents = async () => {
+  const registerForEvent = async (eventId) => {
     try {
-      const event_ids = selectedEvents.map((event) => event.id);
-      await axios.post('http://127.0.0.1:5000/api/registered-events', { event_ids });
-      console.log('Events saved successfully');
+      const response = await axios.post('/api/register', {
+        user_id: userId,
+        event: eventId,
+      }, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`, // Add the token here
+        },
+      });
+      setMessage(response.data.message);
     } catch (error) {
-      console.error('Error saving events:', error);
+      if (error.response) {
+        setMessage(error.response.data.message);
+      } else {
+        setMessage("An error occurred during registration.");
+      }
     }
   };
 
   return (
     <div>
-      <h1>My Registered Events</h1>
+      <h1>Events</h1>
+      {message && <p>{message}</p>}
       <ul>
-        {registeredEvents.map((event) => (
+        {events.map(event => (
           <li key={event.id}>
-            <h2>{event.title}</h2>
+            <h2>{event.name}</h2>
             <p>{event.description}</p>
+            <button onClick={() => registerForEvent(event.id)}>
+              Register
+            </button>
           </li>
         ))}
       </ul>
-      <h1>Available Events</h1>
-      <ul>
-        {events.map((event) => (
-          <li key={event.id}>
-            <h2>{event.title}</h2>
-            <p>{event.description}</p>
-            <label>
-              <input
-                type="checkbox"
-                checked={selectedEvents.some((selectedEvent) => selectedEvent.id === event.id)}
-                onChange={() => (event.id === selectedEvents[0].id ? handleDeselectEvent(event) : handleSelectEvent(event))}
-              />
-              Save event
-            </label>
-          </li>
-        ))}
-      </ul>
-      <button onClick={handleSaveEvents}>Save Selected Events</button>
     </div>
   );
-}
+};
 
-export default RegisteredEvents;
+export default EventRegistration;

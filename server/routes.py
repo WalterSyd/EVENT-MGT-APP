@@ -89,16 +89,17 @@ class EventResource(Resource):
 
 # Register for an Event
 class RegisterForEvent(Resource):
-    @jwt_required()
-    def post(self, event_id):
-        user_id = get_jwt_identity()['id']
-        event = Event.query.get_or_404(event_id)
+    # @jwt_required()
+    def post(self):
+        # user_id = get_jwt_identity()['id']
+        data = request.get_json()
+        event = Event.query.filter_by(id=data['event']).first()
         
-        existing_registration = Registration.query.filter_by(user_id=user_id, event_id=event_id).first()
+        existing_registration = Registration.query.filter_by(user_id=data["user_id"], event_id=event.id).first()
         if existing_registration:
             return jsonify(message="User is already registered for this event."), 400
         
-        new_registration = Registration(user_id=user_id, event_id=event_id)
+        new_registration = Registration(user_id=data["user_id"], event_id=event.id)
         db.session.add(new_registration)
         db.session.commit()
         return jsonify(message="User registered for the event successfully."), 201
@@ -124,7 +125,7 @@ class RegisteredEvents(Resource):
             if not registration:
                 new_registration = Registration(user_id=user_id, event_id=event_id)
                 db.session.add(new_registration)
-        db.session.commit()
+                db.session.commit()
         return jsonify(message="Events saved successfully."), 201
 
 # Create a new Event (Admin)
@@ -145,6 +146,63 @@ class CreateEvent(Resource):
         db.session.add(new_event)
         db.session.commit()
         return jsonify(message="Event created successfully"), 201
+    
+
+# Update User Profile
+class UpdateProfile(Resource):
+    @jwt_required()
+    def put(self):
+        data = request.get_json()
+        user_id = get_jwt_identity()['id']
+        user = User.query.get_or_404(user_id)
+        
+        if not user:
+            return {"message": "User not found."}, 404
+        
+        user.username = data.get('username', user.username)
+        user.email = data.get('email', user.email)
+        user.role = data.get('role', user.role)
+        
+        db.session.commit()
+        
+        return {"message": "User profile updated successfully."}, 200
+
+
+# Change User Password
+class ChangePassword(Resource):
+    @jwt_required()
+    def put(self):
+        data = request.get_json()
+        user_id = get_jwt_identity()['id']
+        user = User.query.get_or_404(user_id)
+        
+        if not user:
+            return {"message": "User not found."}, 404
+        
+        if not check_password_hash(user.password_hash, data['current_password']):
+            return {"message": "Invalid current password."}, 401
+        
+        user.password_hash = generate_password_hash(data['new_password'])
+        
+        db.session.commit()
+        
+        return {"message": "User password changed successfully."}, 200
+
+
+# Delete User Profile
+class DeleteProfile(Resource):
+    @jwt_required()
+    def delete(self):
+        user_id = get_jwt_identity()['id']
+        user = User.query.get_or_404(user_id)
+        
+        if not user:
+            return {"message": "User not found."}, 404
+        
+        db.session.delete(user)
+        db.session.commit()
+        
+        return {"message": "User profile deleted successfully."}, 204
 
 # Define the API resources and routes
 api.add_resource(Register, '/api/register')
@@ -155,6 +213,9 @@ api.add_resource(EventResource, '/api/events/<int:event_id>')
 api.add_resource(RegisterForEvent, '/api/events/<int:event_id>/register')
 api.add_resource(RegisteredEvents, '/api/registered-events')
 api.add_resource(CreateEvent, '/api/events/admin')
+api.add_resource(UpdateProfile, '/api/profile/update')
+api.add_resource(ChangePassword, '/api/profile/change-password')
+api.add_resource(DeleteProfile, '/api/profile/delete')
 
 if __name__ == '__main__':
     app.run(debug=True)
