@@ -2,17 +2,37 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom'; // Import Link for routing
 
+
 const Navbar = () => {
   const [searchTerm, setSearchTerm] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
+  const [access_token, setAccessToken] = useState(localStorage.getItem('access_token') || '');
+
 
   const handleSearch = async () => {
     try {
       const response = await axios.get(`/events?search=${searchTerm}`);
+      setSearchResults(response.data);
       console.log('Search Results:', response.data);
     } catch (error) {
       console.error('Error fetching search results:', error);
+      if (error.response) {
+        console.error('Error response:', error.response.data);
+      } else if (error.request) {
+        console.error('Error request:', error.request);
+      } else {
+        console.error('Error:', error.message);
+      }
     }
   };
+
+
+  const handleLogout = () => {
+    localStorage.removeItem('access_token');
+    setAccessToken('');
+    window.location.href = '/login';
+  };
+
 
   // Navbar Styles (you can adjust them further)
   const navbarStyle = {
@@ -29,6 +49,7 @@ const Navbar = () => {
     zIndex: '1001',
   };
 
+
   const buttonStyle = {
     backgroundColor: '#1abc9c',
     color: 'white',
@@ -41,30 +62,53 @@ const Navbar = () => {
     margin: '0 10px'
   };
 
+
   return (
-    <div style={navbarStyle}>
-      {/* Search Bar */}
-      <div>
-        <input 
-          type="text" 
-          placeholder="Search events..." 
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          style={{ padding: '8px', borderRadius: '5px', width: '300px' }}
-        />
-        <button style={buttonStyle} onClick={handleSearch}>Search</button>
+    <div>
+      <div style={navbarStyle}>
+        {/* Search Bar */}
+        <div>
+          <input 
+            type="text" 
+            placeholder="Search events..." 
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            style={{ padding: '8px', borderRadius: '5px', width: '300px' }}
+          />
+          <button style={buttonStyle} onClick={handleSearch}>Search</button>
+        </div>
+
+
+        {/* Navbar Links */}
+        <div>
+          
+          <Link to="/about" style={buttonStyle}>About Us</Link>
+          <Link to="/services" style={buttonStyle}>Our Services</Link>
+          <Link to="/contact" style={buttonStyle}>Contact Us</Link>
+          {access_token ? (
+            <button style={buttonStyle} onClick={handleLogout}>Logout</button>
+          ) : (
+            <Link to="/login" style={buttonStyle}>Login</Link>
+          )}
+        </div>
       </div>
 
-      {/* Navbar Links */}
-      <div>
-        
-        <Link to="/about" style={buttonStyle}>About Us</Link>
-        <Link to="/services" style={buttonStyle}>Our Services</Link>
-        <Link to="/contact" style={buttonStyle}>Contact Us</Link>
-        <button style={buttonStyle}>Logout</button>
-      </div>
+      {/* Search Results */}
+      {searchResults.length > 0 && (
+        <div style={{ padding: '20px' }}>
+          <h2>Search Results:</h2>
+          <ul>
+            {searchResults.map((result, index) => (
+              <li key={index}>
+                <Link to={`/events/${result.id}`}>{result.name}</Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 };
+
 
 export default Navbar;

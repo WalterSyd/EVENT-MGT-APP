@@ -1,3 +1,5 @@
+// App.js
+
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar';
@@ -14,18 +16,17 @@ import Profile from './pages/Profile';
 import AboutUs from './components/AboutUs';
 import ContactUs from './components/ContactUs';
 import OurServices from './components/OurServices';
-import './App.css'; // Ensure this path is correct
+
+// Style for the main content area to account for the fixed navbar and sidebar
+const mainContentStyle = {
+  marginLeft: '250px', // Leaves space for the sidebar
+  marginTop: '60px',  // Leaves space for the navbar
+  padding: '20px',
+  backgroundColor: '#f4f4f4',
+  minHeight: '100vh'
+};
 
 function App() {
-  // Style for the main content area to account for the fixed navbar and sidebar
-  const mainContentStyle = {
-    marginLeft: '250px', // Leaves space for the sidebar
-    marginTop: '60px',  // Leaves space for the navbar
-    padding: '20px',
-    backgroundColor: '#f4f4f4',
-    minHeight: '100vh'
-  };
-
   return (
     <Router>
       {/* Fixed Navbar and Sidebar */}
@@ -44,8 +45,6 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/event/:id" element={<EventDetails />} />
           <Route path="/edit-event/:id" element={<EditEvent />} />
-
-          {/* New Routes for About Us, Our Services, and Contact Us */}
           <Route path="/about" element={<AboutUs />} />
           <Route path="/services" element={<OurServices />} />
           <Route path="/contact" element={<ContactUs />} />

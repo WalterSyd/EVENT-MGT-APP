@@ -19,7 +19,7 @@ function EventList() {
 console.log(events)
     const handleRegister = async (eventId) => {
         try {
-            const response = await axios.post(`/events/${eventId}/register`, {}, {
+            const response = await axios.post(`http://127.0.0.1:5000/events/${eventId}/register`, {}, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('access_token')}`
                 }

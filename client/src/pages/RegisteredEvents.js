@@ -1,47 +1,61 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-function RegisteredEvents() {
-    const [registeredEvents, setRegisteredEvents] = useState([]);
+const RegisteredEvents = () => {
+  const [registeredEvents, setRegisteredEvents] = useState([]);
+  const [events, setEvents] = useState([]);
 
-    useEffect(() => {
-        const fetchRegisteredEvents = async () => {
-            try {
-                // Simulate registered events data (Replace this with real API call when available)
-                const eventsData = [
-                    { id: 1, title: 'Africa Bitcoin Conference 2024', description: 'Explore Bitcoin and crypto developments in Africa.' },
-                    { id: 2, title: 'Silicon Xchange 2024', description: 'Tech event featuring top industry leaders.' }
-                ];
-                setRegisteredEvents(eventsData); // Set fetched data
-            } catch (error) {
-                console.error('Error fetching registered events:', error);
-            }
-        };
-        fetchRegisteredEvents();
-        const fetchEvents = async () => {
-            try {
-                const response = await axios.get('http://127.0.0.1:5000/api/events');
-                console.log(response.data);
-            } catch (error) {
-                console.error('Error fetching events:', error);
-            }
-        };
-        fetchEvents();
-    }, []);
+  useEffect(() => {
+    fetchRegisteredEvents();
+  }, []);
 
-    return (
-        <div>
-            <h1>My Registered Events</h1>
-            <ul>
-                {registeredEvents.map(event => (
-                    <li key={event.id}>
-                        <h2>{event.title}</h2>
-                        <p>{event.description}</p>
-                    </li>
-                ))}
-            </ul>
-        </div>
-    );
-}
+  const fetchRegisteredEvents = async () => {
+    try {
+      const accessToken = localStorage.getItem('access_token');
+      const response = await axios.get(`http://127.0.0.1:5000/api/registered-events`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      const registeredEvents = response.data;
+      setRegisteredEvents(registeredEvents);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleRemoveEvent = async (eventId) => {
+    try {
+      const accessToken = localStorage.getItem('access_token');
+      await axios.delete(`http://127.0.0.1:5000/api/registered-events/${eventId}`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      const updatedRegisteredEvents = registeredEvents.filter((event) => event.id !== eventId);
+      setRegisteredEvents(updatedRegisteredEvents);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  return (
+    <div>
+      <h1>My Events</h1>
+      <ul>
+        {registeredEvents.map((event) => (
+          <li key={event.id}>
+            <h3>{event.title}</h3>
+            <p>{event.description}</p>
+            <p>Date: {event.date}</p>
+            <p>Time: {event.time}</p>
+            <p>Location: {event.location}</p>
+            <button onClick={() => handleRemoveEvent(event.id)}>Remove</button>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
 
 export default RegisteredEvents;
