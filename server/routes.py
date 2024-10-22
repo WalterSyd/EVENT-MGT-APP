@@ -110,23 +110,31 @@ class RegisteredEvents(Resource):
     def get(self):
         user_id = get_jwt_identity()['id']
         registered_events = Registration.query.filter_by(user_id=user_id).all()
-        event_ids = [registration.event_id for registration in registered_events]
-        events = Event.query.filter(Event.id.in_(event_ids)).all()
-        return jsonify([event.to_dict() for event in events]), 200
+        return jsonify([event.event.to_dict() for event in registered_events])
 
     @jwt_required()
     def post(self):
         user_id = get_jwt_identity()['id']
         data = request.get_json()
-        event_ids = data.get('event_ids', [])
-        for event_id in event_ids:
-            event = Event.query.get_or_404(event_id)
-            registration = Registration.query.filter_by(user_id=user_id, event_id=event_id).first()
-            if not registration:
-                new_registration = Registration(user_id=user_id, event_id=event_id)
-                db.session.add(new_registration)
-                db.session.commit()
-        return jsonify(message="Events saved successfully."), 201
+        event_id = data.get('event_id')
+        event = Event.query.get_or_404(event_id)
+        registration = Registration.query.filter_by(user_id=user_id, event_id=event_id).first()
+        if not registration:
+            new_registration = Registration(user_id=user_id, event_id=event_id)
+            db.session.add(new_registration)
+            db.session.commit()
+        return jsonify(message="Event saved successfully.")
+
+    @jwt_required()
+    def delete(self, event_id):
+        user_id = get_jwt_identity()['id']
+        registration = Registration.query.filter_by(user_id=user_id, event_id=event_id).first()
+        if registration:
+            db.session.delete(registration)
+            db.session.commit()
+            return jsonify(message="Event removed from registered events.")
+        else:
+            return jsonify(message="Event not found in registered events."), 404
 
 # Create a new Event (Admin)
 class CreateEvent(Resource):
@@ -211,7 +219,7 @@ api.add_resource(Refresh, '/api/refresh')
 api.add_resource(Events, '/api/events')
 api.add_resource(EventResource, '/api/events/<int:event_id>')
 api.add_resource(RegisterForEvent, '/api/events/<int:event_id>/register')
-api.add_resource(RegisteredEvents, '/api/registered-events')
+api.add_resource(RegisteredEvents, '/api/registered-events', '/api/registered-events/<int:event_id>')
 api.add_resource(CreateEvent, '/api/events/admin')
 api.add_resource(UpdateProfile, '/api/profile/update')
 api.add_resource(ChangePassword, '/api/profile/change-password')

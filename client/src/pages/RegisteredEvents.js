@@ -1,58 +1,56 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const EventRegistration = () => {
+const RegisteredEvents = () => {
+  const [registeredEvents, setRegisteredEvents] = useState([]);
   const [events, setEvents] = useState([]);
-  const [userId, setUserId] = useState(1); // Replace with actual logged-in user ID
-  const [message, setMessage] = useState('');
-  const accessToken = localStorage.getItem('access_token'); // Adjust as needed to retrieve the token
 
   useEffect(() => {
-    // Fetch events from your API
-    const fetchEvents = async () => {
-      try {
-        const response = await axios.get('/api/events'); // Adjust API endpoint as necessary
-        setEvents(response.data);
-      } catch (error) {
-        console.error("Error fetching events:", error);
-      }
-    };
-
-    fetchEvents();
+    fetchRegisteredEvents();
   }, []);
 
-  const registerForEvent = async (eventId) => {
+  const fetchRegisteredEvents = async () => {
     try {
-      const response = await axios.post('/api/register', {
-        user_id: userId,
-        event: eventId,
-      }, {
+      const accessToken = localStorage.getItem('access_token');
+      const response = await axios.get(`http://127.0.0.1:5000/api/registered-events`, {
         headers: {
-          Authorization: `Bearer ${accessToken}`, // Add the token here
+          Authorization: `Bearer ${accessToken}`,
         },
       });
-      setMessage(response.data.message);
+      const registeredEvents = response.data;
+      setRegisteredEvents(registeredEvents);
     } catch (error) {
-      if (error.response) {
-        setMessage(error.response.data.message);
-      } else {
-        setMessage("An error occurred during registration.");
-      }
+      console.error(error);
+    }
+  };
+
+  const handleRemoveEvent = async (eventId) => {
+    try {
+      const accessToken = localStorage.getItem('access_token');
+      await axios.delete(`http://127.0.0.1:5000/api/registered-events/${eventId}`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      const updatedRegisteredEvents = registeredEvents.filter((event) => event.id !== eventId);
+      setRegisteredEvents(updatedRegisteredEvents);
+    } catch (error) {
+      console.error(error);
     }
   };
 
   return (
     <div>
-      <h1>Events</h1>
-      {message && <p>{message}</p>}
+      <h1>My Events</h1>
       <ul>
-        {events.map(event => (
+        {registeredEvents.map((event) => (
           <li key={event.id}>
-            <h2>{event.name}</h2>
+            <h3>{event.title}</h3>
             <p>{event.description}</p>
-            <button onClick={() => registerForEvent(event.id)}>
-              Register
-            </button>
+            <p>Date: {event.date}</p>
+            <p>Time: {event.time}</p>
+            <p>Location: {event.location}</p>
+            <button onClick={() => handleRemoveEvent(event.id)}>Remove</button>
           </li>
         ))}
       </ul>
@@ -60,4 +58,4 @@ const EventRegistration = () => {
   );
 };
 
-export default EventRegistration;
+export default RegisteredEvents;
