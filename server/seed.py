@@ -27,19 +27,19 @@ def seed_db():
 
         # Create fake events
         for _ in range(10):
-            event_date = datetime.strptime(fake.date(), '%Y-%m-%d')  # Parse the date string to a date object
-            event_time = datetime.strptime(fake.time(), '%H:%M:%S').time()  # Parse the time string into a time object
+            event_date = datetime.strptime(fake.date(), '%Y-%m-%d')  
+            event_time = datetime.strptime(fake.time(), '%H:%M:%S').time() 
             event = Event(
                 title=fake.catch_phrase(),
                 description=fake.text(max_nb_chars=200),
-                date=event_date,  # Use the parsed date object
-                time=event_time,  # Use the parsed time object
+                date=event_date,  
+                time=event_time, 
                 location=fake.city(),
-                created_by=1  # Assuming the first user is the creator
+                created_by=1  
             )
             db.session.add(event)
 
-        db.session.commit()  # Commit the changes to the database
+        db.session.commit() 
         print("Database seeded successfully.")
 
 seed_db()

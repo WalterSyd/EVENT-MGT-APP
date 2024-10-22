@@ -43,6 +43,7 @@ class Event(db.Model, SerializerMixin):
   registrations = db.relationship('Registration', back_populates='event')
 
   serialize_rules =('-registrations', '-creator')
+  
 
 class Registration(db.Model, SerializerMixin):
   __tablename__ = 'registrations'
