@@ -25,6 +25,7 @@ class Event(db.Model, SerializerMixin):
   __tablename__ = 'events'
   
   id = db.Column(db.Integer, primary_key=True)
+  category = db.Column(db.String(50), nullable=False)
   title = db.Column(db.String(100), nullable=False)
   description = db.Column(db.String(500), nullable=False)
   date = db.Column(db.Date, nullable=False)
