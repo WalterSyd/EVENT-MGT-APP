@@ -5,3 +5,11 @@ flask-cors
 flask-jwt-extended
 faker
 flask-sqlalchemy
+
+"""
+pip install flask-mail python-dotenv
+
+Flask-Mail
+python-dotenv
+
+"""
