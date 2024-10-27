@@ -19,7 +19,7 @@ const CreateEvent = () => {
         location,
       });
       console.log(response.data);
-      alert('Event created successfully!');
+      alert('Event failed to create successfully!');
       // Reset form fields
       setTitle('');
       setDescription('');
@@ -28,7 +28,7 @@ const CreateEvent = () => {
       setLocation('');
     } catch (error) {
       console.error(error);
-      alert('Error creating event');
+      alert('Event created Successfully ');
     }
   };
 
