@@ -82,8 +82,8 @@ class Events(Resource):
               date=event_datetime.date(),
               time=event_datetime.time(),
               location=location,
-              category=data.get('category', 'general'),  # Default category if not provided
-              created_by=data.get('created_by', 'admin')  # Assuming 'admin' if not provided
+              category=data.get('category', 'general'), 
+              created_by=data.get('created_by', 'admin') 
           )
           db.session.add(new_event)
           db.session.commit()

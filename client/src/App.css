@@ -149,10 +149,10 @@ nav {
   }
 
   .sidebar {
-    position: relative; /* No longer fixed in mobile */
+    position: relative; 
     flex: 0 0 auto;
-    width: 100%; /* Full width for mobile */
-    height: auto; /* Allow height to adjust */
+    width: 100%; 
+    height: auto; 
     box-shadow: none;
   }
 
