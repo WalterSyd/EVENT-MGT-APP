@@ -1,4 +1,4 @@
-// OurServices.js
+
 import React from 'react';
 
 const OurServices = () => {
@@ -31,7 +31,7 @@ const OurServices = () => {
           <p>
             Our talented design team transforms spaces into extraordinary environments that reflect your theme and personality. We offer comprehensive design services, including custom décor, lighting, and floral arrangements, to create a captivating atmosphere.
           </p>
-          <img src="design-decor.jpg" alt="Design & Décor" />
+          <img src="event.jpg" alt="Design & Décor" />
         </div>
 
         <div className="service-card">

@@ -20,13 +20,18 @@ const CreateEvent = () => {
       });
       console.log(response.data);
       alert('Event created successfully!');
+      // Reset form fields
+      setTitle('');
+      setDescription('');
+      setDate('');
+      setTime('');
+      setLocation('');
     } catch (error) {
       console.error(error);
       alert('Error creating event');
     }
   };
 
-  // Styles
   const containerStyle = {
     backgroundColor: '#ecf0f1',
     padding: '30px',

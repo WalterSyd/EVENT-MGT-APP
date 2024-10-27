@@ -33,7 +33,17 @@ class Event(db.Model, SerializerMixin):
   location = db.Column(db.String(100), nullable=False)
   created_by = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
   created_at = db.Column(db.DateTime, default=datetime.utcnow)
-
+  def to_dict(self):
+      return {
+          'id': self.id,
+          'title': self.title,
+          'description': self.description,
+          'date': self.date.isoformat(),
+          'time': self.time.isoformat(),
+          'location': self.location,
+          'category': self.category,
+          'created_by': self.created_by
+      }
   def __repr__(self):
     return f"Event('{self.title}', '{self.date}', '{self.time}')"
 

@@ -2,17 +2,11 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom'; // Import Link for routing
 
-
-
-
 const Navbar = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [searchCategory, setSearchCategory] = useState('all');
   const [access_token, setAccessToken] = useState(localStorage.getItem('access_token') || '');
-
-
-
 
   const handleSearch = async () => {
     try {
@@ -36,19 +30,12 @@ const Navbar = () => {
     }
   };
 
-
-
-
   const handleLogout = () => {
     localStorage.removeItem('access_token');
     setAccessToken('');
     window.location.href = '/login';
   };
 
-
-
-
-  // Navbar Styles (you can adjust them further)
   const navbarStyle = {
     display: 'flex',
     justifyContent: 'space-between',
@@ -63,9 +50,6 @@ const Navbar = () => {
     zIndex: '1001',
   };
 
-
-
-
   const buttonStyle = {
     backgroundColor: '#1abc9c',
     color: 'white',
@@ -77,9 +61,6 @@ const Navbar = () => {
     cursor: 'pointer',
     margin: '0 10px'
   };
-
-
-
 
   return (
     <div>
@@ -107,12 +88,8 @@ const Navbar = () => {
           <button style={buttonStyle} onClick={handleSearch}>Search</button>
         </div>
 
-
-
-
         {/* Navbar Links */}
         <div>
-          
           <Link to="/about" style={buttonStyle}>About Us</Link>
           <Link to="/services" style={buttonStyle}>Our Services</Link>
           <Link to="/contact" style={buttonStyle}>Contact Us</Link>
@@ -123,8 +100,6 @@ const Navbar = () => {
           )}
         </div>
       </div>
-
-
 
       {/* Search Results */}
       {searchResults.length > 0 && (
@@ -142,8 +117,5 @@ const Navbar = () => {
     </div>
   );
 };
-
-
-
 
 export default Navbar;
