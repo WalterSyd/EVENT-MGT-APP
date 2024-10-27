@@ -556,11 +556,12 @@ nav {
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   width: 350px;
-  height: 350px;
+  height: 700px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
 }
 
 .service-card h2 {
@@ -579,9 +580,12 @@ nav {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform 0.3s ease;
   border-radius: 10px;
 }
-
+.service-card img:hover {
+  transform: scale(1.2);
+}
 /* Make the service cards responsive */
 @media (max-width: 768px) {
   .services-grid {
@@ -589,7 +593,7 @@ nav {
   }
   .service-card {
     width: 100%;
-    height: 350px;
+    height: 800px;
   }
 }
 
@@ -599,7 +603,7 @@ nav {
   }
   .service-card {
     width: 100%;
-    height: 300px;
+    height: 800px;
   }
 }
 
