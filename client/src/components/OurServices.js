@@ -1,4 +1,3 @@
-
 import React from 'react';
 
 const OurServices = () => {
@@ -15,7 +14,7 @@ const OurServices = () => {
           <p>
             Our dedicated planners guide you through every step of the event planning process. From initial concept discussions to final execution, we manage all logistics, timelines, and vendor coordination to ensure a seamless experience.
           </p>
-          <img src="event-planning.jpg" alt="Event Planning" />
+          <img src="/tools/Event-planning.avif" alt="Event Planning" />
         </div>
 
         <div className="service-card">
@@ -23,7 +22,7 @@ const OurServices = () => {
           <p>
             We assist you in selecting a location that not only fits your vision and budget but also enhances the overall ambiance of your event. Our extensive network allows us to recommend venues that suit any style or requirement.
           </p>
-          <img src="venue-selection.jpg" alt="Venue Selection" />
+          <img src="/tools/Venue.avif" alt="Venue Selection" />
         </div>
 
         <div className="service-card">
@@ -31,7 +30,7 @@ const OurServices = () => {
           <p>
             Our talented design team transforms spaces into extraordinary environments that reflect your theme and personality. We offer comprehensive design services, including custom décor, lighting, and floral arrangements, to create a captivating atmosphere.
           </p>
-          <img src="event.jpg" alt="Design & Décor" />
+          <img src="/tools/Design.avif" alt="Design & Décor" />
         </div>
 
         <div className="service-card">
@@ -39,7 +38,7 @@ const OurServices = () => {
           <p>
             We partner with top caterers to provide a diverse range of menu options that cater to all tastes and dietary restrictions, ensuring your guests enjoy a memorable culinary experience.
           </p>
-          <img src="catering-services.jpg" alt="Catering Services" />
+          <img src="/tools/Catering.avif" alt="Catering Services" />
         </div>
 
         <div className="service-card">
@@ -47,7 +46,7 @@ const OurServices = () => {
           <p>
             We provide state-of-the-art audio-visual solutions, including lighting, sound systems, and live streaming capabilities, to enhance your event and engage your audience.
           </p>
-          <img src="audio-visual-technology.jpg" alt="Audio-Visual & Technology" />
+          <img src="/tools/Audiovisual.avif" alt="Audio-Visual & Technology" />
         </div>
 
         <div className="service-card">
@@ -55,7 +54,7 @@ const OurServices = () => {
           <p>
             Our experienced team is there to oversee every detail on the day of your event, managing set-up, coordinating with vendors, and handling any unexpected challenges.
           </p>
-          <img src="on-site-management.jpg" alt="On-Site Management" />
+          <img src="/tools/On-site-mgt.avif" alt="On-Site Management" />
         </div>
 
         <div className="service-card">
@@ -63,7 +62,7 @@ const OurServices = () => {
           <p>
             Our commitment doesn’t end when the event concludes. We conduct a comprehensive post-event analysis to gather feedback and insights, helping you assess the success of the event and plan for future occasions.
           </p>
-          <img src="post-event-support.jpg" alt="Post-Event Support" />
+          <img src="/tools/Post-event-support.png" alt="Post-Event Support" />
         </div>
 
         <div className="service-card">
@@ -71,7 +70,7 @@ const OurServices = () => {
           <p>
             We offer customizable service packages to fit your specific needs and budget, ensuring a tailored experience for any type of event.
           </p>
-          <img src="custom-packages.jpg" alt="Custom Packages" />
+          <img src="/tools/custom.jpeg" alt="Custom Packages" />
         </div>
 
         <div className="service-card">
@@ -79,7 +78,7 @@ const OurServices = () => {
           <p>
             For those looking for guidance, we provide consultation services to help you strategize and develop a cohesive event plan, offering valuable insights that enhance your event’s impact.
           </p>
-          <img src="consultation-strategy.jpg" alt="Consultation & Strategy" />
+          <img src="/tools/Consultaion.avif" alt="Consultation & Strategy" />
         </div>
       </div>
 
