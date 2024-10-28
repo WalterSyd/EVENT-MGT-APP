@@ -1,5 +1,4 @@
 # EVENT-MGT-APP
-# Event Management System
 
 The Event Management System is a comprehensive web application designed to streamline the process of creating, managing, and registering for events. It provides an intuitive interface for both users and event organizers, allowing for easy browsing, registration, and event management.
 
