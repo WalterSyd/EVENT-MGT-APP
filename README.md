@@ -127,3 +127,7 @@ event-management-system/
 
 Contributions are welcome! Please fork the repository and submit a pull request for any improvements or bug fixes.
 
+## Demo Video
+
+You can download and watch the demo video [here](./tools/EVENT-MGT-APP_Video-Explainer.mp4).
+     
