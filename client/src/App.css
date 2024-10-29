@@ -129,6 +129,8 @@ nav {
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   text-align: left;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width:350px;
+  height:350px;
 }
 
 .event-card:hover {
@@ -555,8 +557,8 @@ nav {
   border: 1px solid #ddd;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  width: 350px;
-  height: 700px;
+  width: 530px;
+  height: 910px;
   display: flex;
   flex-direction: column;
   justify-content: center;
