@@ -4,9 +4,9 @@ services:
     plan: free
     region: oregon
     buildCommand: npm install && npm run build
-    startCommand: npm start
+    startCommand: serve -s build
     envVars:
       - key: NODE_VERSION
-        value: 20.18.0
+        value: 20.15.1
     autoDeploy: true
     port: 3000
