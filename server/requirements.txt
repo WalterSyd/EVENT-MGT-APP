@@ -7,3 +7,4 @@ faker
 flask-sqlalchemy
 Flask-Mail
 python-dotenv
+gunicorn
