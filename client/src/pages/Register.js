@@ -64,9 +64,7 @@ function Register() {
         marginTop: '15px',
     };
 
-    const buttonHoverStyle = {
-        backgroundColor: '#1abc9c',
-    };
+
 
     return (
         <div style={containerStyle}>
