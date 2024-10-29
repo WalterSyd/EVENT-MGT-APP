@@ -38,29 +38,6 @@ const RegisteredEvents = () => {
     }
   };
 
-  const handleSaveEvents = async (eventId) => {
-    try {
-      const accessToken = localStorage.getItem('access_token');
-      await axios.post('http://127.0.0.1:5000/api/registered-events', {
-        event_id: eventId,
-        user_id: localStorage.getItem('user_id'),
-      }, {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      });
-      const updatedRegisteredEvents = [...registeredEvents];
-      const newEvent = await axios.get(`http://127.0.0.1:5000/api/events/${eventId}`, {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      });
-      updatedRegisteredEvents.push(newEvent.data);
-      setRegisteredEvents(updatedRegisteredEvents);
-    } catch (error) {
-      console.error(error);
-    }
-  };
 
   return (
     <div id="registered-events">
