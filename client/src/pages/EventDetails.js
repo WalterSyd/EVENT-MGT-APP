@@ -10,7 +10,7 @@ function EventDetails() {
   useEffect(() => {
     const fetchEvent = async () => {
       try {
-        const response = await axios.get(`http://127.0.0.1:5000/events/${eventId}`);
+        const response = await axios.get(`https://event-mgt-app-t1wa.onrender.com/events/${eventId}`);
         setEvent(response.data);
       } catch (error) {
         console.error('Error fetching event:', error);

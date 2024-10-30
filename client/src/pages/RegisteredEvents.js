@@ -8,7 +8,7 @@ const RegisteredEvents = () => {
     const fetchRegisteredEvents = async () => {
       try {
         const accessToken = localStorage.getItem('access_token');
-        const response = await axios.get(`http://127.0.0.1:5000/api/registered-events`, {
+        const response = await axios.get(`https://event-mgt-app-t1wa.onrender.com/api/registered-events`, {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
@@ -26,7 +26,7 @@ const RegisteredEvents = () => {
   const handleRemoveEvent = async (eventId) => {
     try {
       const accessToken = localStorage.getItem('access_token');
-      await axios.delete(`http://127.0.0.1:5000/api/registered-events/${eventId}`, {
+      await axios.delete(`https://event-mgt-app-t1wa.onrender.com/api/registered-events/${eventId}`, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },

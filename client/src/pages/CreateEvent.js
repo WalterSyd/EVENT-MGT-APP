@@ -11,7 +11,7 @@ const CreateEvent = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.post('http://127.0.0.1:5000/api/events', {
+      const response = await axios.post('https://event-mgt-app-t1wa.onrender.com/api/events', {
         title,
         description,
         date,

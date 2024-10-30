@@ -10,7 +10,7 @@ function Home() {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const response = await axios.get('http://127.0.0.1:5000/api/events');
+        const response = await axios.get('https://event-mgt-app-t1wa.onrender.com/api/events');
         setEvents(response.data);
       } catch (error) {
         console.error('Error fetching events:', error);
@@ -27,7 +27,7 @@ function Home() {
   const handleSaveEvents = async (eventId) => {
     try {
       const accessToken = localStorage.getItem('access_token');
-      await axios.post('http://127.0.0.1:5000/api/registered-events', {
+      await axios.post('https://event-mgt-app-t1wa.onrender.com/api/registered-events', {
         event_id: eventId,
         user_id: localStorage.getItem('user_id'),
       }, {

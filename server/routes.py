@@ -6,10 +6,12 @@ from config import app
 from flask_restful import Resource, Api
 from flask_cors import CORS
 from datetime import datetime
+from dotenv import load_dotenv
 
 api = Api(app)
 jwt = JWTManager(app)
-CORS(app, resources={r"/api/*": {"origins": "http://localhost:3000"}})  # Configure CORS
+CORS(app, resources={r"/api/*": {"origins": "https://event-mgt-app.onrender.com"}})  # Configure CORS
+load_dotenv()
 
 # User Registration
 class Register(Resource):
