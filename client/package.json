@@ -1,5 +1,6 @@
 {
   "name": "client",
+  "proxy": "https://event-mgt-app-t1wa.onrender.com",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
