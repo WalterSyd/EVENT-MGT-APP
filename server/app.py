@@ -2,6 +2,7 @@
 from config import app, db
 from flask_migrate import Migrate
 from routes import *  # Import routes here
+import os
 
 # Initialize extensions
 migrate = Migrate(app, db)
@@ -11,5 +12,6 @@ migrate = Migrate(app, db)
 def home():
     return "Welcome to the Event Management System API!"
 
-if __name__ == "__main__":
-    app.run(debug=True)  
+if __name__ == '__main__':
+    port = int(os.environ.get("PORT", 5555))
+    app.run(host="0.0.0.0", port=port, debug=True)
