@@ -7,12 +7,12 @@ class User(db.Model, SerializerMixin):
   __tablename__ = 'users'
   
   id = db.Column(db.Integer, primary_key=True)
-  username = db.Column(db.String(80), nullable=False, unique=True)
-  email = db.Column(db.String(120), nullable=False, unique=True)
-  password_hash = db.Column(db.String(128), nullable=False)
-  role = db.Column(db.String(10), default='user') 
+  username = db.Column(db.String, nullable=False, unique=True)
+  email = db.Column(db.String, nullable=False, unique=True)
+  password_hash = db.Column(db.String, nullable=False)
+  role = db.Column(db.String, default='user') 
   created_at = db.Column(db.DateTime, default=datetime.utcnow)
-  refresh_token = db.Column(db.String(255))  
+  refresh_token = db.Column(db.String)  
   
   # Define a relationship with Registration
   registrations = relationship('Registration', back_populates='user')
@@ -25,12 +25,12 @@ class Event(db.Model, SerializerMixin):
   __tablename__ = 'events'
   
   id = db.Column(db.Integer, primary_key=True)
-  category = db.Column(db.String(50), nullable=False)
-  title = db.Column(db.String(100), nullable=False)
-  description = db.Column(db.String(500), nullable=False)
+  category = db.Column(db.String, nullable=False)
+  title = db.Column(db.String, nullable=False)
+  description = db.Column(db.String, nullable=False)
   date = db.Column(db.Date, nullable=False)
   time = db.Column(db.Time, nullable=False)
-  location = db.Column(db.String(100), nullable=False)
+  location = db.Column(db.String, nullable=False)
   created_by = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
   created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
